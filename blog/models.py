@@ -33,7 +33,11 @@ class Post(TimeStampedModel):
     title = models.CharField(max_length=100)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    category = models.ForeignKey(
+        Category, on_delete=models.PROTECT, null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created']
 
     def __str__(self):
         return self.title
