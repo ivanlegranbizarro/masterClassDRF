@@ -1,7 +1,7 @@
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from rest_framework.serializers import ModelSerializer
-from django.conf import settings
 
 from .models import Category, Post
 
@@ -16,7 +16,7 @@ class CategorySerializer(ModelSerializer):
 class PostSerializer(ModelSerializer):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'author']
+        fields = ['title', 'content', 'author', 'files']
         read_only_fields = ['author']
 
     def create(self, validated_data):
