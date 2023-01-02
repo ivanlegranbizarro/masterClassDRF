@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 
 # Create your models here.
 
@@ -14,7 +15,7 @@ class TimeStampedModel(models.Model):
 
 
 class Category(TimeStampedModel):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, validators=[MinLengthValidator(3)])
     slug = models.SlugField(max_length=20, unique=True, blank=True, null=True)
 
     class Meta:
@@ -30,8 +31,10 @@ class Category(TimeStampedModel):
 
 
 class Post(TimeStampedModel):
-    title = models.CharField(max_length=100)
-    content = models.TextField()
+    title = models.CharField(max_length=100, validators=[
+                             MinLengthValidator(3)])
+    content = models.TextField(
+        validators=[MinLengthValidator(10), MaxLengthValidator(1000)])
     files = models.FileField(upload_to='uploads/posts/', blank=True, null=True)
     image = models.ImageField(
         upload_to='uploads/posts/', blank=True, null=True)
