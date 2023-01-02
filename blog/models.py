@@ -33,6 +33,8 @@ class Post(TimeStampedModel):
     title = models.CharField(max_length=100)
     content = models.TextField()
     files = models.FileField(upload_to='uploads/posts/', blank=True, null=True)
+    image = models.ImageField(
+        upload_to='uploads/posts/', blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, null=True, blank=True)

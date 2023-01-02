@@ -16,7 +16,7 @@ class CategorySerializer(ModelSerializer):
 class PostSerializer(ModelSerializer):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'author', 'files']
+        fields = ['title', 'content', 'author', 'files', 'image']
         read_only_fields = ['author']
 
     def create(self, validated_data):
