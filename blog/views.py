@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.utils.text import slugify
-from rest_framework import generics
+from rest_framework import filters, generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 from .models import Category, Post
@@ -34,6 +34,8 @@ class AdminAuthorsList(generics.RetrieveDestroyAPIView):
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'content']
 
     def get_permissions(self):
         if self.request.method == 'POST':
